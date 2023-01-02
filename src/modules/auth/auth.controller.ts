@@ -6,6 +6,8 @@ import {
   comparePassowrds,
   createUser,
   findUserByEmail,
+  findUserById,
+  updateUser,
 } from '../user/user.service';
 import { resErr } from 'utils/utils';
 
@@ -48,6 +50,29 @@ export async function loginController(req: Request, res: Response) {
 
     res.status(200).json({
       accessToken,
+    });
+  } catch (error) {
+    return resErr(res, 400, error as Error | string);
+  }
+}
+
+export async function changePasswordController(req: Request, res: Response) {
+  try {
+    console.log('hi');
+    const user = await findUserById(req.context.user.id);
+    if (!user) throw new Error('User Doesnt exist on DataBase');
+
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    if (!comparePassowrds(oldPassword, user.password))
+      throw new Error('Wrong Password');
+
+    if (newPassword !== confirmPassword)
+      throw new Error('Password Confirmation is Wrong');
+    await updateUser(user.id, { password: newPassword });
+
+    res.status(200).json({
+      message: 'success',
     });
   } catch (error) {
     return resErr(res, 400, error as Error | string);

@@ -27,3 +27,20 @@ export const registerValidator = validateRequest({
     message: 'Passwords do not match',
   }),
 });
+
+export const changePasswordValidator = validateRequest({
+  params: z.object({}),
+  body: z
+    .object({
+      oldPassword: z.string(),
+      newPassword: z.string(),
+      confirmPassword: string({
+        required_error: 'Please confirm your password',
+      }),
+    })
+    .refine((data) => data.newPassword === data.confirmPassword, {
+      path: ['confirmPassword'],
+      message: 'Passwords do not match',
+    }),
+  query: z.object({}),
+});

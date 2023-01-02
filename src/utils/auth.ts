@@ -14,7 +14,6 @@ export async function isLoggedIn(
     const accessToken = req.headers.authorization?.slice(7);
     if (!accessToken) throw new Error('User Is not Logged In');
 
-    console.log(accessToken);
     const user = decodeJwt(accessToken);
     if (!user) throw new Error('Invalid Access Token');
 

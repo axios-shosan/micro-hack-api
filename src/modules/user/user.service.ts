@@ -5,7 +5,7 @@
 // import { excludedFields } from '../controllers/auth.controller';
 // import redisClient from 'utils/connectRedis';
 // import { signJwt } from 'utils/jwt';
-import { CreateUser } from 'interfaces/User';
+import { CreateUser, User } from 'interfaces/User';
 import prisma from 'infra/prisma';
 import bcrypt from 'bcrypt';
 import Config from 'config/default';
@@ -43,7 +43,17 @@ export async function findUserById(id: number) {
 
 // Find All users
 export const findAllUsers = async () => {
-  return await prisma.user.findMany();
+  return prisma.user.findMany();
 };
 
-// Sign Token
+//Update User
+export const updateUser = async (id: number, data: Partial<User>) => {
+  if (data.password) data.password = hashPassword(data.password);
+
+  return prisma.user.update({
+    where: {
+      id,
+    },
+    data,
+  });
+};
