@@ -5,8 +5,7 @@ interface JwtPayload {
   email: string;
   name: string;
   teamId: number;
-  QRcode: string;
-  NFC: string;
+  checkInId: string;
   role: Role;
 }
 

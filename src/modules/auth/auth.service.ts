@@ -36,8 +36,7 @@ export const signToken = async (user: User) => {
       email: user.email,
       name: user.name,
       teamId: user.teamId,
-      QRcode: user.QRcode,
-      NFC: user.NFC,
+      checkInId: user.checkInId,
       role: user.role,
     },
     {

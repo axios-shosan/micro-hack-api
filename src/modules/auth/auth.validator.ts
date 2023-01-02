@@ -18,8 +18,7 @@ export const registerValidator = validateRequest({
     }),
     password: string({ required_error: 'Password Is Required' }),
     teamId: number({ required_error: 'Team Id is Required' }),
-    QRcode: string({ required_error: 'QR Code is Required' }),
-    NFC: string({ required_error: 'NFC code is Required' }),
+    checkInId: string({ required_error: 'Team Id is Required' }),
     role: number({ required_error: 'Role is Reuqired' }).int().gte(0).lte(1),
     passwordConfirm: string({ required_error: 'Please confirm your password' }),
   }).refine((data) => data.password === data.passwordConfirm, {

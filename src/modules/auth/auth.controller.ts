@@ -27,8 +27,7 @@ export async function registerController(req: Request, res: Response) {
       password: req.body.password,
       name: req.body.name,
       teamId: req.body.teamId,
-      QRcode: req.body.QRcode,
-      NFC: req.body.NFC,
+      checkInId: req.body.checkInId,
       role: req.body.role,
     });
     res.status(200).json(user);

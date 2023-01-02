@@ -24,7 +24,7 @@ export function comparePassowrds(
 }
 // CreateUser service
 export const createUser = async (userInput: CreateUser) => {
-  const user: CreateUser = {
+  const user: any = {
     ...userInput,
     password: hashPassword(userInput.password),
   };

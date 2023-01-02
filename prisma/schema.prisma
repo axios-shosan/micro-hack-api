@@ -17,9 +17,28 @@ model User {
   password String
   name  String @unique
   teamId Int
-  QRcode String @unique
-  NFC String @unique
+  checkInId String @unique
   role Int @default(0) // 0 User, 1 Admin 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  checkInUser CheckInUser[]
+}
+
+
+model CheckIn {
+  id    Int     @id @default(autoincrement())
+  sessionName String @unique
+  checkInUser CheckInUser[]
+    createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+}
+
+model CheckInUser {
+  id    Int     @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [checkInId]) 
+  userId String
+  checkIn CheckIn @relation(fields: [checkInId], references: [id])
+  checkInId Int 
+    createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
 }

@@ -9,8 +9,7 @@ interface User {
   password: string;
   name: string;
   teamId: number;
-  QRcode: string;
-  NFC: string;
+  checkInId: string;
   role: Role;
   createdAt: Date;
   updatedAt: Date;
@@ -21,8 +20,7 @@ interface CreateUser {
   password: string;
   name: string;
   teamId: number;
-  QRcode: string;
-  NFC: string;
+  checkInId: string;
   role: Role;
 }
 
