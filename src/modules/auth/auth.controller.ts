@@ -58,7 +58,6 @@ export async function loginController(req: Request, res: Response) {
 
 export async function changePasswordController(req: Request, res: Response) {
   try {
-    console.log('hi');
     const user = await findUserById(req.context.user.id);
     if (!user) throw new Error('User Doesnt exist on DataBase');
 
