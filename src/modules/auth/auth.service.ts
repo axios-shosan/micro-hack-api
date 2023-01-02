@@ -41,7 +41,7 @@ export const signToken = async (user: User) => {
       role: user.role,
     },
     {
-      expiresIn: `${Config.accessTokenExpiresIn}m`,
+      expiresIn: `${Config.accessTokenExpiresIn}d`,
     }
   );
 
