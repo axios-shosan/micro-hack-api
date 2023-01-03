@@ -1,9 +1,10 @@
 import express, { Router } from 'express';
-import { isAdmin } from 'utils/auth';
+import { isAdmin, isLoggedIn } from 'utils/auth';
 import {
   createCheckInController,
   deleteCheckInController,
   getAllCheckInController,
+  getCheckInIdController,
   updateCheckInController,
 } from './checkIn.controllers';
 import {
@@ -29,6 +30,6 @@ router
 router.post('/scan', isAdmin, scanUserValidator);
 
 //Uesr Routes
-router.get('/checkInCode');
+router.get('/checkInCode', isLoggedIn, getCheckInIdController);
 
 export default router;

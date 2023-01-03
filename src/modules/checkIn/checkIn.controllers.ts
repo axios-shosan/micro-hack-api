@@ -9,6 +9,8 @@ import {
 } from './checkIn.services';
 import { resErr } from 'utils/utils';
 import { CheckIn, CheckInUser } from '@prisma/client';
+import { User } from 'interfaces/User';
+import { findUserById } from 'modules/user/user.service';
 
 export async function getAllCheckInController(req: Request, res: Response) {
   try {
@@ -86,8 +88,14 @@ export async function scanUserController(req: Request, res: Response) {
   }
 }
 
-export async function getCheckInId(req: Request, res: Response) {
+export async function getCheckInIdController(req: Request, res: Response) {
   try {
+    const user: User | null = await findUserById(req.context.user.id);
+    if (!user) throw new Error("Can't Find user");
+
+    res.status(200).json({
+      cehckInId: user.checkInId,
+    });
   } catch (error) {
     return resErr(res, 400, error as Error | string);
   }
