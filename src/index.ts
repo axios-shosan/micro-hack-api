@@ -4,7 +4,8 @@ import { config } from 'dotenv'; // import env variables
 
 config();
 
-import authRouter from './modules/auth/auth.route';
+import authRoutes from './modules/auth/auth.route';
+import checkInRoutes from './modules/checkIn/checkIn.routes';
 
 const app: Express = express();
 const PORT = process.env.PORT || 5000;
@@ -16,6 +17,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('hello');
 });
 
-app.use('/auth', authRouter);
+app.use('/auth', authRoutes);
+app.use('/checkIn', checkInRoutes);
 
 app.listen(PORT, () => console.log(`server running on port ${PORT}`));
