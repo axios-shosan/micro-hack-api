@@ -72,7 +72,8 @@ export async function scanUserController(req: Request, res: Response) {
       parseInt(req.body.checkInId),
       req.body.userCheckInId
     );
-    if (hasCheckedIn) throw new Error('User Has Already Checked In');
+    if (hasCheckedIn.length !== 0)
+      throw new Error('User Has Already Checked In');
 
     const checkUser: CheckInUser = await createCheckInUser({
       userCheckInId: req.body.userCheckInId,
@@ -84,6 +85,7 @@ export async function scanUserController(req: Request, res: Response) {
       checkUser,
     });
   } catch (error) {
+    console.error(error);
     return resErr(res, 400, error as Error | string);
   }
 }

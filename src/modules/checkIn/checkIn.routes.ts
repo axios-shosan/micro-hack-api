@@ -5,6 +5,7 @@ import {
   deleteCheckInController,
   getAllCheckInController,
   getCheckInIdController,
+  scanUserController,
   updateCheckInController,
 } from './checkIn.controllers';
 import {
@@ -22,12 +23,13 @@ router
   .get(getAllCheckInController)
   .post(createCheckInValidator, createCheckInController);
 
+router.post('/scan', isAdmin, scanUserValidator, scanUserController);
+
 router
   .route('/:id')
   .all(isAdmin)
   .put(updateCheckInValidator, updateCheckInController)
   .delete(deleteCheckInController);
-router.post('/scan', isAdmin, scanUserValidator);
 
 //Uesr Routes
 router.get('/checkInCode', isLoggedIn, getCheckInIdController);

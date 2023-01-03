@@ -32,8 +32,7 @@ export async function findCheckInUserByIds(
 ) {
   return prisma.checkInUser.findMany({
     where: {
-      checkInId,
-      userCheckInId,
+      AND: [{ checkInId }, { userCheckInId }],
     },
   });
 }
