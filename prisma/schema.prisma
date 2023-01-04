@@ -48,6 +48,7 @@ model CheckInUser {
 model ShareMomentSession {
   id Int @id @default(autoincrement())
   sessionName String
+  state Boolean @default(false)
    createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
   shareMoment ShareMoment[]
