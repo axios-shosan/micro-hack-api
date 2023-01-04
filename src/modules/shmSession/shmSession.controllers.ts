@@ -1,9 +1,9 @@
 import { ShareMomentSession } from '@prisma/client';
 import { Request, Response } from 'express';
 import { resErr } from 'utils/utils';
-import { createShmSession } from './shm.services';
+import { createShmSession } from './shmSession.services';
 
-export async function createShmController(req: Request, res: Response) {
+export async function createShmSessionController(req: Request, res: Response) {
   try {
     const shmSession: ShareMomentSession = await createShmSession({
       sessionName: req.body.sessionName,
@@ -18,7 +18,7 @@ export async function createShmController(req: Request, res: Response) {
   }
 }
 
-export async function updateShmController(req: Request, res: Response) {
+export async function updateShmSessionController(req: Request, res: Response) {
   try {
     const shmSession: ShareMomentSession = await createShmSession({
       sessionName: req.body.sessionName,
