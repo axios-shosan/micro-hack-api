@@ -18,3 +18,19 @@ export async function updateShmSession(
     data: inputData,
   });
 }
+
+export async function getShmSessionById(id: number) {
+  return prisma.shareMomentSession.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
+export async function deleteShmSession(id: number) {
+  return prisma.shareMomentSession.delete({
+    where: {
+      id,
+    },
+  });
+}

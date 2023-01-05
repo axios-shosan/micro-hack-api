@@ -1,8 +1,7 @@
 import express, { Router } from 'express';
-import { isAdmin, isLoggedIn } from 'utils/auth';
+import { isAdmin } from 'utils/auth';
 import {
   createShmSessionValidator,
-  createShmValidator,
   updateShmSessionValidator,
 } from './shmSession.validators';
 import {
@@ -12,33 +11,16 @@ import {
 
 const router: Router = express();
 
-// - Get Points of all users
-
-//Uesr Routes
-router.use(isLoggedIn);
-
-router.post('/');
 //admin Routes
 router.use(isAdmin);
 
 // - Release new Session
-router.post(
-  '/session/craete',
-  createShmSessionValidator,
-  createShmSessionController
-);
+router.post('/', createShmSessionValidator, createShmSessionController);
 
 // - Get All images of a session
-router.get('/session/:id/images');
+router.get('/:id/images');
 
 // - Update Session
-router.put(
-  '/session/:id',
-  updateShmSessionValidator,
-  updateShmSessionController
-);
-
-// - Delete a Moment
-router.delete('/moment/:id');
+router.put('/:id', updateShmSessionValidator, updateShmSessionController);
 
 export default router;

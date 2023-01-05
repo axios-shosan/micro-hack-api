@@ -10,6 +10,7 @@ interface User {
   name: string;
   teamId: number;
   checkInId: string;
+  points: number;
   role: Role;
   createdAt: Date;
   updatedAt: Date;
