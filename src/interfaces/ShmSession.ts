@@ -6,7 +6,7 @@ export interface ShareMomentSesssion {
   updatedAt: Date;
 }
 
-export interface CreateShm {
+export interface CreateShmSession {
   sessionName: string;
   acitve: boolean;
 }

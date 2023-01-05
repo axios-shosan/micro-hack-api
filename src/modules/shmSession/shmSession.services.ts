@@ -1,7 +1,7 @@
 import prisma from 'infra/prisma';
-import { CreateShm, ShareMomentSesssion } from 'interfaces/Shm';
+import { CreateShmSession, ShareMomentSesssion } from 'interfaces/ShmSession';
 
-export async function createShmSession(inputData: CreateShm) {
+export async function createShmSession(inputData: CreateShmSession) {
   return prisma.shareMomentSession.create({
     data: inputData,
   });
