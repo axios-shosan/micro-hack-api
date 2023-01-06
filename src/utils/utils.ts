@@ -10,7 +10,7 @@ export function resErr(res: Response, error: Error | string, status = 400) {
   });
 }
 
-export function resSuccess(res: Response, data: any, status = 200) {
+export function resSuccess(res: Response, data: unknown, status = 200) {
   return res.status(status).json(data);
 }
 
