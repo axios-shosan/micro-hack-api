@@ -9,7 +9,7 @@ import {
   findUserById,
   updateUser,
 } from '../user/user.service';
-import { resErr } from 'utils/utils';
+import { resErr, resSuccess } from 'utils/utils';
 
 const accessTokenCookieOptions: CookieOptions = {
   expires: new Date(Date.now() + Config.accessTokenExpiresIn * 60 * 1000),
@@ -30,9 +30,9 @@ export async function registerController(req: Request, res: Response) {
       checkInId: req.body.checkInId,
       role: req.body.role,
     });
-    res.status(200).json(user);
+    resSuccess(res, user);
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
 
@@ -47,11 +47,9 @@ export async function loginController(req: Request, res: Response) {
     const { accessToken } = await signToken(user);
     res.cookie('accessToken', accessToken, accessTokenCookieOptions);
 
-    res.status(200).json({
-      accessToken,
-    });
+    resSuccess(res, { accessToken });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
 
@@ -69,10 +67,8 @@ export async function changePasswordController(req: Request, res: Response) {
       throw new Error('Password Confirmation is Wrong');
     await updateUser(user.id, { password: newPassword });
 
-    res.status(200).json({
-      message: 'success',
-    });
+    resSuccess(res, { message: 'Password Changed Successfully' });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }

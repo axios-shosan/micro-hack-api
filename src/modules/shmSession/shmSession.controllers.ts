@@ -1,6 +1,6 @@
 import { ShareMomentSession } from '@prisma/client';
 import { Request, Response } from 'express';
-import { resErr } from 'utils/utils';
+import { resErr, resSuccess } from 'utils/utils';
 import { createShmSession } from './shmSession.services';
 
 export async function createShmSessionController(req: Request, res: Response) {
@@ -10,11 +10,13 @@ export async function createShmSessionController(req: Request, res: Response) {
       acitve: req.body.acitve,
     });
     if (!shmSession) throw new Error("Couldn't Create Share MomentSession");
-    res.status(200).json({
+
+    resSuccess(res, {
+      message: 'Share You moment Session has been Created',
       shmSession,
     });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
 
@@ -25,10 +27,12 @@ export async function updateShmSessionController(req: Request, res: Response) {
       acitve: req.body.acitve,
     });
     if (!shmSession) throw new Error("Couldn't Create Share MomentSession");
-    res.status(200).json({
+
+    resSuccess(res, {
+      message: "Share You moment Session has been Updated'",
       shmSession,
     });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }

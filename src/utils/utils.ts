@@ -1,6 +1,6 @@
 import { Response } from 'express';
 
-export function resErr(res: Response, status: number, error: Error | string) {
+export function resErr(res: Response, error: Error | string, status = 400) {
   if (error instanceof Error)
     return res.status(status).json({
       message: error.message,
@@ -8,6 +8,10 @@ export function resErr(res: Response, status: number, error: Error | string) {
   return res.status(status).json({
     message: error,
   });
+}
+
+export function resSuccess(res: Response, data: any, status = 200) {
+  return res.status(status).json(data);
 }
 
 //calculating points will be based on the session created date and the number of tagged User

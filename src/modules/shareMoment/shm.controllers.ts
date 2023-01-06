@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { calculatePoints, resErr } from 'utils/utils';
+import { calculatePoints, resErr, resSuccess } from 'utils/utils';
 import { createShareMoment, createTag } from './shm.services';
 import { Shm } from 'interfaces/Shm';
 import { getShmSessionById } from 'modules/shmSession/shmSession.services';
@@ -46,12 +46,11 @@ export async function shareMomentController(req: Request, res: Response) {
     // Here I will add points to the user
     updateUser(userId, { points });
 
-    res.status(200).json({
+    resSuccess(res, {
       message: 'Shared Moment created successfully',
       data: sharedMoment,
     });
   } catch (error) {
-    console.log('error', error);
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }

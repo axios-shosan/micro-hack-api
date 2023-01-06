@@ -21,7 +21,7 @@ export async function isLoggedIn(
 
     return next();
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
 
@@ -46,6 +46,6 @@ export async function isAdmin(req: Request, res: Response, next: NextFunction) {
     }
     throw new Error('User is Not Admin');
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }

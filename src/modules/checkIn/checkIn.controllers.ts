@@ -7,7 +7,7 @@ import {
   findCheckInUserByIds,
   createCheckInUser,
 } from './checkIn.services';
-import { resErr } from 'utils/utils';
+import { resErr, resSuccess } from 'utils/utils';
 import { CheckIn, CheckInUser } from '@prisma/client';
 import { User } from 'interfaces/User';
 import { findUserById } from 'modules/user/user.service';
@@ -15,12 +15,13 @@ import { findUserById } from 'modules/user/user.service';
 export async function getAllCheckInController(req: Request, res: Response) {
   try {
     const checkIns: CheckIn[] = await findAllCheckIn();
-    res.status(200).json({
+
+    resSuccess(res, {
       message: 'success',
       checkIns,
     });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
 
@@ -32,12 +33,12 @@ export async function createCheckInController(req: Request, res: Response) {
 
     if (!checkIn) throw new Error("Couldn't Create CheckIn Session");
 
-    res.status(200).json({
+    resSuccess(res, {
       message: 'success',
       checkIn,
     });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
 export async function updateCheckInController(req: Request, res: Response) {
@@ -47,23 +48,23 @@ export async function updateCheckInController(req: Request, res: Response) {
     });
     if (!checkIn) throw new Error("Couldn't Create CheckIn Session");
 
-    res.status(200).json({
+    resSuccess(res, {
       message: 'success',
       checkIn,
     });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
 export async function deleteCheckInController(req: Request, res: Response) {
   try {
     await deleteCheckIn(parseInt(req.params.id));
 
-    res.status(200).json({
+    resSuccess(res, {
       message: 'success',
     });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
 export async function scanUserController(req: Request, res: Response) {
@@ -80,12 +81,12 @@ export async function scanUserController(req: Request, res: Response) {
       checkInId: req.body.checkInId,
     });
 
-    res.status(200).json({
-      message: 'success',
+    resSuccess(res, {
+      message: 'User Has Been Checked In',
       checkUser,
     });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
 
@@ -94,10 +95,10 @@ export async function getCheckInIdController(req: Request, res: Response) {
     const user: User | null = await findUserById(req.context.user.id);
     if (!user) throw new Error("Can't Find user");
 
-    res.status(200).json({
-      cehckInId: user.checkInId,
+    resSuccess(res, {
+      checkInId: user.checkInId,
     });
   } catch (error) {
-    return resErr(res, 400, error as Error | string);
+    return resErr(res, error as Error | string);
   }
 }
