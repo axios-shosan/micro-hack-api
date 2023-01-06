@@ -4,9 +4,8 @@ import fs from 'fs';
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     try {
-      const { sessionId } = req.body;
       const { teamId } = req.context.user;
-      const dir = `./uploads/shm/${teamId}/${sessionId}`;
+      const dir = `./uploads/shm/${teamId}`;
 
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
@@ -21,9 +20,8 @@ const storage = multer.diskStorage({
 
   filename: (req, file, cb) => {
     if (file) {
-      const { sessionId } = req.body;
       const { teamId } = req.context.user;
-      const fileName = `./uploads/shm/${teamId}/${sessionId}/${
+      const fileName = `./uploads/shm/${teamId}/${
         file.originalname
       }-${Date.now()}`;
       if (fs.existsSync(fileName))

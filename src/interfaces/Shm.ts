@@ -1,4 +1,4 @@
-export interface Shm {
+export interface ShareMoment {
   id: number;
   title: string;
   sessionId: number;

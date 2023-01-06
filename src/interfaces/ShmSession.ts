@@ -8,5 +8,5 @@ export interface ShareMomentSesssion {
 
 export interface CreateShmSession {
   sessionName: string;
-  acitve: boolean;
+  active: boolean;
 }
