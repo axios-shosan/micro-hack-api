@@ -49,7 +49,7 @@ export async function deleteShmSession(id: number) {
   });
 }
 
-export async function getActiveShmSession(): Promise<number> {
+export async function getActiveShmSession(): Promise<ShareMomentSesssion> {
   const shmSessions = await prisma.shareMomentSession.findMany({
     orderBy: [
       {
@@ -59,10 +59,7 @@ export async function getActiveShmSession(): Promise<number> {
     where: {
       active: true,
     },
-    select: {
-      id: true,
-    },
   });
 
-  return shmSessions[0].id;
+  return shmSessions[0];
 }

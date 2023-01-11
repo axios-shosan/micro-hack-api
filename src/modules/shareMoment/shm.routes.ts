@@ -49,8 +49,8 @@ router.get(
 router.post(
   '/share',
   hasSharedMomentMiddleware,
-  uploadShmImage.array('pictures', 2),
   shareMomentValidator,
+  uploadShmImage.array('pictures', 2),
   shareMomentController
 );
 

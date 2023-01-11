@@ -9,10 +9,7 @@ import {
   updateShareMoment,
 } from './shm.services';
 import { ShareMoment } from 'interfaces/Shm';
-import {
-  getActiveShmSession,
-  getShmSessionById,
-} from 'modules/shmSession/shmSession.services';
+import { getActiveShmSession } from 'modules/shmSession/shmSession.services';
 import { ShareMomentSesssion } from 'interfaces/ShmSession';
 import { findUserById, updateUser } from 'modules/user/user.service';
 
@@ -20,14 +17,14 @@ export async function shareMomentController(req: Request, res: Response) {
   try {
     const { title, tags } = req.body;
     const userId = req.context.user.id;
-    const sessionId = await getActiveShmSession();
+    const shmSession: ShareMomentSesssion = await getActiveShmSession();
 
     const files = req.files as Express.Multer.File[];
 
     // Here I will call shm service to create the shared Moment
     const sharedMoment: ShareMoment = await createShareMoment({
       title,
-      sessionId,
+      sessionId: shmSession.id,
       userId,
       picture1: files[0].path,
       picture2: files[1].path,
@@ -43,9 +40,7 @@ export async function shareMomentController(req: Request, res: Response) {
       });
     }
     // Here I will get the session Created Date to update the user points
-    const shmSession: ShareMomentSesssion | null = await getShmSessionById(
-      sessionId
-    );
+
     if (!shmSession) throw new Error('Share Moment Session not found');
 
     // calc points
@@ -53,7 +48,8 @@ export async function shareMomentController(req: Request, res: Response) {
     if (!user) throw new Error('User not found');
 
     const points: number =
-      calculatePoints(shmSession.createdAt, tags?.length || 0) + user.points;
+      calculatePoints(shmSession.createdAt, tags?.split(',').length || 0) +
+      user.points;
 
     // Here I will add points to the user
     updateUser(userId, { points });
@@ -106,13 +102,13 @@ export async function hasSharedMomentController(req: Request, res: Response) {
 export async function getTaggedMomentsController(req: Request, res: Response) {
   try {
     const userId = req.context.user.id;
-    const sessionId = await getActiveShmSession();
+    const session: ShareMomentSesssion = await getActiveShmSession();
 
     const taggedMomentIds = await getTaggedMomentIds(userId);
 
     const sharedMoments = await getShareMomentByIds(
       taggedMomentIds.map((id) => id.shareMomentId),
-      sessionId
+      session.id
     );
 
     resSuccess(res, {
@@ -126,9 +122,9 @@ export async function getTaggedMomentsController(req: Request, res: Response) {
 
 export async function getSharedMomentsController(req: Request, res: Response) {
   try {
-    const sessionId = await getActiveShmSession();
+    const session: ShareMomentSesssion = await getActiveShmSession();
 
-    const sharedMoments = await getShareMomentBySessionId(sessionId);
+    const sharedMoments = await getShareMomentBySessionId(session.id);
 
     resSuccess(res, {
       message: 'Shared Moments fetched successfully',
