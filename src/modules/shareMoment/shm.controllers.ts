@@ -3,6 +3,9 @@ import { calculatePoints, resErr, resSuccess } from 'utils/utils';
 import {
   createShareMoment,
   createTag,
+  deleteSharedMoment,
+  deleteTags,
+  getAllSharedMoments,
   getShareMomentByIds,
   getShareMomentBySessionId,
   getTaggedMomentIds,
@@ -131,6 +134,35 @@ export async function getSharedMomentsController(req: Request, res: Response) {
       data: sharedMoments,
     });
   } catch (error) {
+    resErr(res, error as Error | string);
+  }
+}
+
+export async function getAllSharedMomentsController(
+  req: Request,
+  res: Response
+) {
+  try {
+    const sharedMoments = await getAllSharedMoments();
+
+    resSuccess(res, { sharedMoments });
+  } catch (error) {
+    resErr(res, error as Error | string);
+  }
+}
+
+export async function deleteSharedMomentController(
+  req: Request,
+  res: Response
+) {
+  try {
+    const shmId = Number(req.params.id);
+    await deleteTags(shmId);
+    await deleteSharedMoment(shmId);
+
+    resSuccess(res, { message: 'success' });
+  } catch (error) {
+    console.error(error);
     resErr(res, error as Error | string);
   }
 }

@@ -2,6 +2,10 @@ import prisma from 'infra/prisma';
 import { CreateShm, ShareMoment } from 'interfaces/Shm';
 import { CreateTag } from 'interfaces/Tag';
 
+export const getAllSharedMoments = async () => {
+  return prisma.shareMoment.findMany({});
+};
+
 export const createShareMoment = async (inputData: CreateShm) => {
   return prisma.shareMoment.create({
     data: inputData,
@@ -11,6 +15,14 @@ export const createShareMoment = async (inputData: CreateShm) => {
 export async function createTag(inputData: CreateTag) {
   return prisma.tag.create({
     data: inputData,
+  });
+}
+
+export async function deleteTags(shareMomentId: number) {
+  return prisma.tag.deleteMany({
+    where: {
+      shareMomentId,
+    },
   });
 }
 
@@ -80,4 +92,12 @@ export async function hasSharedMoment(sessionId: number, userId: number) {
   });
   if (sharedMoments) return true;
   return false;
+}
+
+export async function deleteSharedMoment(id: number) {
+  return prisma.shareMoment.delete({
+    where: {
+      id,
+    },
+  });
 }

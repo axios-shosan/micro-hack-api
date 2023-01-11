@@ -2,6 +2,8 @@ import express, { Router } from 'express';
 import { isAdmin, isLoggedIn } from 'utils/auth';
 import uploadShmImage from 'middleware/multer';
 import {
+  deleteSharedMomentController,
+  getAllSharedMomentsController,
   getSharedMomentsController,
   getTaggedMomentsController,
   hasSharedMomentController,
@@ -9,6 +11,7 @@ import {
   updateShareMomentController,
 } from './shm.controllers';
 import {
+  deleteShareMomentValidator,
   emptyValidator,
   shareMomentValidator,
   updateShareMomentValidator,
@@ -62,5 +65,11 @@ router.put(
 );
 //admin Routes
 router.use(isAdmin);
+router.get('/all', emptyValidator, getAllSharedMomentsController);
+router.delete(
+  '/delete/:id',
+  deleteShareMomentValidator,
+  deleteSharedMomentController
+);
 
 export default router;

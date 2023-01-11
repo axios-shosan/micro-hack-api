@@ -29,6 +29,15 @@ export const updateShareMomentValidator = validateRequest({
   }),
   query: z.object({}),
 });
+export const deleteShareMomentValidator = validateRequest({
+  params: z.object({
+    id: z.string({
+      required_error: 'Id is required In Params',
+    }),
+  }),
+  body: z.object({}),
+  query: z.object({}),
+});
 
 export const emptyValidator = validateRequest({
   params: z.object({}),

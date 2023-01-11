@@ -9,9 +9,9 @@ export async function hasSharedMomentMiddleware(
   next: NextFunction
 ) {
   try {
-    const sessionId = await getActiveShmSession();
+    const session = await getActiveShmSession();
 
-    const hasShared = await hasSharedMoment(sessionId, req.context.user.id);
+    const hasShared = await hasSharedMoment(session.id, req.context.user.id);
 
     if (hasShared) return resErr(res, 'User has Already shared a moment');
 
@@ -27,9 +27,9 @@ export async function hasntSharedMomentMiddleware(
   next: NextFunction
 ) {
   try {
-    const sessionId = await getActiveShmSession();
+    const session = await getActiveShmSession();
 
-    const hasShared = await hasSharedMoment(sessionId, req.context.user.id);
+    const hasShared = await hasSharedMoment(session.id, req.context.user.id);
 
     if (!hasShared) return resErr(res, "User Didn't shared a moment");
 
