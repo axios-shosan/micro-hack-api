@@ -45,13 +45,13 @@ router.get(
 router.get(
   '/tagged',
   emptyValidator,
-  hasntSharedMomentMiddleware,
+  hasSharedMomentMiddleware,
   getTaggedMomentsController
 );
 
 router.post(
   '/share',
-  hasSharedMomentMiddleware,
+  hasntSharedMomentMiddleware,
   shareMomentValidator,
   uploadShmImage.array('pictures', 2),
   shareMomentController

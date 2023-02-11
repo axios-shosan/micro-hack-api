@@ -13,7 +13,7 @@ export async function hasSharedMomentMiddleware(
 
     const hasShared = await hasSharedMoment(session.id, req.context.user.id);
 
-    if (hasShared) return resErr(res, 'User has Already shared a moment');
+    if (!hasShared) return resErr(res, 'User Did not Share a Moment');
 
     return next();
   } catch (error) {
@@ -31,7 +31,7 @@ export async function hasntSharedMomentMiddleware(
 
     const hasShared = await hasSharedMoment(session.id, req.context.user.id);
 
-    if (!hasShared) return resErr(res, "User Didn't shared a moment");
+    if (hasShared) return resErr(res, 'User Has Already Shared a Moment');
 
     return next();
   } catch (error) {
