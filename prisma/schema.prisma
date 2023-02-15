@@ -16,6 +16,7 @@ model User {
   email String  @unique
   password String
   name  String @unique
+  team Team @relation(fields: [teamId], references: [id])
   teamId Int
   checkInId String @unique
   role Int @default(0) // 0 User, 1 Admin 
@@ -25,6 +26,13 @@ model User {
   checkInUser CheckInUser[]
   shareMoments ShareMoment[]
   tags Tag[]
+}
+
+model Team {
+  id Int @id @default(autoincrement())
+  name String
+  requestCoach RequestCoach[]
+  users User[]
 }
 
 
@@ -77,4 +85,26 @@ model Tag {
  userId Int
  createdAt DateTime @default(now())
  updatedAt DateTime @updatedAt @default(now())
+}
+
+model Coach {
+  id Int @id @default(autoincrement())
+  name String
+  picture String
+  active Boolean @default(false)
+  requestCoach RequestCoach[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+}
+
+model RequestCoach {
+  id Int @id @default(autoincrement())
+  team Team @relation(fields: [teamId], references: [id])
+  teamId Int
+  coach Coach @relation(fields: [coachId], references: [id])
+  coachId Int
+  status Int @default(0)
+  archived Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
 }
