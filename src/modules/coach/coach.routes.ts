@@ -49,3 +49,5 @@ router.put('/:id', updateCoachValidator, updateCoachController);
 
 //delete Coach
 router.delete('/:id', deleteCoachValidator, deleteCoachController);
+
+export default router;

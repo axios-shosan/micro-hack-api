@@ -7,6 +7,7 @@ import checkInRoutes from './modules/checkIn/checkIn.routes';
 import shareMomentSessionRoutes from './modules/shmSession/shmSession.routes';
 import shareMomentRoutes from './modules/shareMoment/shm.routes';
 import announcementRoutes from './modules/announcement/announecment.routes';
+import coachesRoutes from './modules/coach/coach.routes';
 
 const app: Express = express();
 const PORT = process.env.PORT || 5000;
@@ -23,6 +24,7 @@ app.use('/auth', authRoutes);
 app.use('/checkIn', checkInRoutes);
 app.use('/shareMomentSession', shareMomentSessionRoutes);
 app.use('/shareMoment', shareMomentRoutes);
-app.use('/announcement', announcementRoutes);
+app.use('/announcements', announcementRoutes);
+app.use('/coaches', coachesRoutes);
 
 app.listen(PORT, () => console.log(`server running on port ${PORT}`));
