@@ -2,7 +2,6 @@ import express, { Express, Request, Response } from 'express';
 import expressContext from 'express-request-context';
 import { config } from 'dotenv'; // import env variables
 
-config();
 
 import authRoutes from './modules/auth/auth.route';
 import checkInRoutes from './modules/checkIn/checkIn.routes';
@@ -11,6 +10,7 @@ import shareMomentRouter from './modules/shareMoment/shm.routes';
 
 const app: Express = express();
 const PORT = process.env.PORT || 5000;
+config();
 
 app.use(express.json());
 app.use(expressContext());

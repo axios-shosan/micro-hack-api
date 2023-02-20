@@ -39,10 +39,10 @@ export async function registerController(req: Request, res: Response) {
 export async function loginController(req: Request, res: Response) {
   try {
     const user = await findUserByEmail(req.body.email);
-    if (!user) throw new Error('Wrong Email');
+    if (!user) throw new Error('Wrong Credientials');
 
     if (!comparePassowrds(req.body.password, user.password))
-      throw new Error('Wrong Password');
+      throw new Error('Wrong Credientials');
 
     const { accessToken } = await signToken(user);
     res.cookie('accessToken', accessToken, accessTokenCookieOptions);
