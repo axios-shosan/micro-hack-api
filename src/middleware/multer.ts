@@ -21,9 +21,7 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     if (file) {
       const { teamId } = req.context.user;
-      const fileName = `./uploads/shm/${teamId}/${
-        file.originalname
-      }-${Date.now()}`;
+      const fileName = `./uploads/shm/${teamId}/${file.originalname}-${Date.now()}`;
       if (fs.existsSync(fileName))
         cb(new Error(`file already exists: ${fileName}`), '');
       else cb(null, `${file.originalname}`);

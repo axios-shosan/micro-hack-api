@@ -73,10 +73,7 @@ export async function getActiveCoachesController(req: Request, res: Response) {
   }
 }
 
-export async function createRequestCoachController(
-  req: Request,
-  res: Response
-) {
+export async function createRequestCoachController(req: Request, res: Response) {
   try {
     const teamId = req.context.user.teamId;
     const coachId = req.body.coachId;

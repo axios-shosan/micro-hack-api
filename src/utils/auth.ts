@@ -4,11 +4,7 @@ import { decodeJwt } from 'modules/auth/auth.service';
 import { findUserById } from 'modules/user/user.service';
 import { resErr } from 'utils/utils';
 
-export async function isLoggedIn(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export async function isLoggedIn(req: Request, res: Response, next: NextFunction) {
   try {
     //Get access Toekn from Header
     const accessToken = req.headers.authorization?.slice(7);

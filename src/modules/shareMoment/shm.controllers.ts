@@ -138,10 +138,7 @@ export async function getSharedMomentsController(req: Request, res: Response) {
   }
 }
 
-export async function getAllSharedMomentsController(
-  req: Request,
-  res: Response
-) {
+export async function getAllSharedMomentsController(req: Request, res: Response) {
   try {
     const sharedMoments = await getAllSharedMoments();
 
@@ -151,10 +148,7 @@ export async function getAllSharedMomentsController(
   }
 }
 
-export async function deleteSharedMomentController(
-  req: Request,
-  res: Response
-) {
+export async function deleteSharedMomentController(req: Request, res: Response) {
   try {
     const shmId = Number(req.params.id);
     await deleteTags(shmId);

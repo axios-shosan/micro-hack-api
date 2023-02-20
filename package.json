@@ -11,7 +11,8 @@
     "dev": "nodemon ./src/index.ts",
     "type": "module",
     "prisma:migrate": "npx prisma migrate dev --name init",
-    "prisma:studio": "npx prisma studio"
+    "prisma:studio": "npx prisma studio",
+    "prettier": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -26,6 +27,7 @@
     "@typescript-eslint/parser": "^5.47.1",
     "eslint": "^8.30.0",
     "express": "^4.18.2",
+    "prettier": "^2.8.4",
     "prisma": "^4.8.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.1"

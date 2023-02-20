@@ -10,10 +10,7 @@ import {
 } from './announecment.services';
 import { Announcement } from 'interfaces/Announcement';
 
-export async function createAnnouncementController(
-  req: Request,
-  res: Response
-) {
+export async function createAnnouncementController(req: Request, res: Response) {
   try {
     const announcement: Announcement | null = await createAnnouncement({
       title: req.body.title,
@@ -28,10 +25,7 @@ export async function createAnnouncementController(
   }
 }
 
-export async function updateAnnouncementController(
-  req: Request,
-  res: Response
-) {
+export async function updateAnnouncementController(req: Request, res: Response) {
   try {
     const announcement: Announcement | null = await updateAnnouncement(
       Number(req.params.id),
@@ -49,10 +43,7 @@ export async function updateAnnouncementController(
   }
 }
 
-export async function deleteAnnouncementController(
-  req: Request,
-  res: Response
-) {
+export async function deleteAnnouncementController(req: Request, res: Response) {
   try {
     await delteAnnouncement(Number(req.params.id));
 
@@ -62,10 +53,7 @@ export async function deleteAnnouncementController(
   }
 }
 
-export async function getLastAnnouncementController(
-  req: Request,
-  res: Response
-) {
+export async function getLastAnnouncementController(req: Request, res: Response) {
   try {
     const announcements = getAllAnnouncements();
     resSuccess(res, { message: 'sucess', announcements });
@@ -74,10 +62,7 @@ export async function getLastAnnouncementController(
   }
 }
 
-export async function getAllAnnouncementController(
-  req: Request,
-  res: Response
-) {
+export async function getAllAnnouncementController(req: Request, res: Response) {
   try {
     const announcement = getLastAnnouncement();
     resSuccess(res, { message: 'sucess', announcement });
