@@ -6,3 +6,9 @@ export const emptyValidator = validateRequest({
   body: z.object({}),
   query: z.object({}),
 });
+
+export const idAsParam = z.object({
+  id: z.string({
+    required_error: 'missin data',
+  }),
+});
